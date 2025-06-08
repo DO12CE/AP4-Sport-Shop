@@ -51,28 +51,31 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-import { Cart, cart } from './back/cart';
+import { Cart } from './back/cart';
 import React from 'react';
 import PanierCount from './components/PanierCount';
 
 class App extends React.Component<{}, { cartCount: number }> {
+  private cart: Cart = Cart.Get();
+  
   constructor(props: any) {
     super(props);
-    this.state = { cartCount: cart.ItemCount() };
+    this.state = { cartCount: this.cart.ItemCount() };
   }
 
   componentDidMount() {
     // Suppose que tu as un event ou callback sur le cart
-    window.addEventListener('cartUpdated', this.updateCartCount);
-  }
+    this.cart.addEventListener('cartUpdated', this.updateCartCount);  }
 
   componentWillUnmount() {
-    window.removeEventListener('cartUpdated', this.updateCartCount);
+    this.cart.removeEventListener('cartUpdated', this.updateCartCount);
+
   }
 
   updateCartCount = () => {
-    this.setState({ cartCount: cart.ItemCount() });
-  };
+    this.cart = Cart.Get(); // Refresh the cart instance to get the latest dataAdd commentMore actions
+    this.setState({ cartCount: this.cart.ItemCount() });
+    console.log("Cart count updated:", this.cart.ItemCount());  };
 
   render() {
     return (
