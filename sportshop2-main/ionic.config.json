@@ -1,0 +1,13 @@
+{
+	"name": "Sportshop",
+	"integrations": {
+		"capacitor": {}
+	},
+	"proxies": [
+		{
+			"path": "/api",
+			"proxyUrl": "https://sportappi.enzomtp.party/api/"
+		}
+	],
+	"type": "react-vite"
+}
