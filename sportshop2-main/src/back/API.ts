@@ -94,7 +94,7 @@ async function Post(path: string, body: any): Promise<any> {
 //#region PRODUCTS
 export async function getProducts(): Promise<Item[]> {
     let data = await Get("products")
-    console.log(data)
+
     let items: Item[] = []
 
     for (let i = 0; i < data.length; i++) {
@@ -105,21 +105,35 @@ export async function getProducts(): Promise<Item[]> {
 
         items.push(item)
     }
-
+    console.log(items)
     return items
 }
 
-export async function getProduct(id: string) {
-    return await Get("products/" + id)
+export async function getProduct(id: string): Promise<Item> {
+    let product = await Get("products/" + id)
+    let images = await getProductImages(id);
+
+    let item = new Item(product.reference, product.name, product.desc, product.price, product.quantity, images);
+
+    return item;
 }
 
-export async function getProductsCount() {
+export async function getProductsCount(): Promise<number> {
     let products = await Get("products")
     return products.length;
 }
 
 export async function getProductImages(id: string) {
-    return await Get("products/" + id + "/images")
+    let images = await Get("products/" + id + "/images")
+
+    if (images === null || images.length === 0) {
+        images = ["https://ionicframework.com/docs/img/demos/card-media.png"];
+    }
+    else {
+        images = images.map((el: any) => el.name);
+    }
+
+    return images;
 }
 
 //#endregion PRODUCTS

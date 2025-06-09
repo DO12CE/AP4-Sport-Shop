@@ -1,5 +1,4 @@
 import { IonContent, IonHeader, IonIcon, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './panier.css';
 import { cart as cartIcon, storefront } from 'ionicons/icons';
 import { cart, Item } from '../back/cart';

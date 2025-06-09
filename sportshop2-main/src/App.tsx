@@ -57,25 +57,25 @@ import PanierCount from './components/PanierCount';
 
 class App extends React.Component<{}, { cartCount: number }> {
   private cart: Cart = Cart.Get();
-  
+
   constructor(props: any) {
     super(props);
     this.state = { cartCount: this.cart.ItemCount() };
   }
 
   componentDidMount() {
-    // Suppose que tu as un event ou callback sur le cart
-    this.cart.addEventListener('cartUpdated', this.updateCartCount);  }
+    this.cart.addEventListener('cartUpdated', this.updateCartCount);
+  }
 
   componentWillUnmount() {
     this.cart.removeEventListener('cartUpdated', this.updateCartCount);
-
   }
 
   updateCartCount = () => {
-    this.cart = Cart.Get(); // Refresh the cart instance to get the latest dataAdd commentMore actions
+    this.cart = Cart.Get(); // Refresh the cart instance to get the latest data
     this.setState({ cartCount: this.cart.ItemCount() });
-    console.log("Cart count updated:", this.cart.ItemCount());  };
+    console.log("Cart count updated:", this.cart.ItemCount());
+  };
 
   render() {
     return (

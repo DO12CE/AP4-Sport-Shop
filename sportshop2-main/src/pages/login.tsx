@@ -69,7 +69,7 @@ const LoginPage: React.FC = () => {
           Se connecter
         </IonButton>
         <IonButton expand="block" fill="outline" color="secondary" onClick={handleGoToRegister} className="ion-margin-top">
-          CrÃ©er un compte
+          Créer un compte
         </IonButton>
         <IonLoading isOpen={isLoading} message="Connexion..." />
         <IonToast

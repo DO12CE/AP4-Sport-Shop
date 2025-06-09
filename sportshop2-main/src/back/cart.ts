@@ -4,21 +4,21 @@ export class Item {
   desc: string;
   price: number;
   quantity: number;
-  images?: string;
+  images: string[];
 
-  constructor(reference: string, name: string, desc: string, price: number, quantity: number) {
+  constructor(reference: string, name: string, desc: string, price: number, quantity: number = 1, images: string[] = []) {
     this.reference = reference;
     this.name = name;
     this.desc = desc;
     this.price = price;
     this.quantity = quantity;
+    this.images = images;
   }
 }
 
 export class Cart extends EventTarget {
   items: Item[];
   onUpdateCount: Event = new Event("cartUpdated", { bubbles: true, cancelable: false });
-
 
   constructor() {
     super();
@@ -76,7 +76,6 @@ export class Cart extends EventTarget {
 
     this.Save();
     this?.dispatchEvent(this?.onUpdateCount);
-
   }
 
   RemoveProduct(item: Item) {
@@ -92,7 +91,6 @@ export class Cart extends EventTarget {
 
     this.Save();
     this?.dispatchEvent(this?.onUpdateCount);
-
   }
 }
 

@@ -12,7 +12,7 @@ const ShopItem: React.FC<ContainerProps> = ({ item }) => {
     return (
         <a href={"/products/" + item.reference} className="card">
             <IonCard>
-                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <img alt="Silhouette of mountains" src={item.images[0]} />
                 <IonCardHeader>
                     <IonCardTitle>{item.name}</IonCardTitle>
                     <IonCardSubtitle>{item.reference}</IonCardSubtitle>
