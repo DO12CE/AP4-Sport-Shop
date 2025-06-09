@@ -55,20 +55,25 @@ import { Cart } from './back/cart';
 import React from 'react';
 import PanierCount from './components/PanierCount';
 
+export const PanierUpdateEvent = new Event("cartUpdated")
 class App extends React.Component<{}, { cartCount: number }> {
   private cart: Cart = Cart.Get();
 
   constructor(props: any) {
     super(props);
     this.state = { cartCount: this.cart.ItemCount() };
+    document.dispatchEvent(PanierUpdateEvent); // Dispatch the event to initialize the cart count
+
+
   }
 
+  
   componentDidMount() {
-    this.cart.addEventListener('cartUpdated', this.updateCartCount);
+    document.addEventListener('cartUpdated', this.updateCartCount);
   }
 
   componentWillUnmount() {
-    this.cart.removeEventListener('cartUpdated', this.updateCartCount);
+    document.removeEventListener('cartUpdated', this.updateCartCount);
   }
 
   updateCartCount = () => {
@@ -112,7 +117,7 @@ class App extends React.Component<{}, { cartCount: number }> {
               <IonTabButton tab="panier" href="/panier">
                 <IonIcon aria-hidden="true" icon={cartIcon} />
                 <IonLabel>Panier</IonLabel>
-                <IonBadge color="danger">{this.state.cartCount}</IonBadge>
+                <PanierCount />
               </IonTabButton>
               <IonTabButton tab="compte" href={"/compte"}>
                 <IonIcon aria-hidden="true" icon={person} />

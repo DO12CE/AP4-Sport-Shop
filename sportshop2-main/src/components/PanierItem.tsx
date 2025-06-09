@@ -1,13 +1,15 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonItem, IonLabel, IonNav, IonRow } from "@ionic/react";
-
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonIcon, IonItem, IonLabel, IonNav, IonRow } from "@ionic/react";
 import "./PanierItem.css";
-import { Item } from "../back/cart"
-
+import { Cart, Item } from "../back/cart"
+import { addCircleOutline, car, removeCircleOutline } from "ionicons/icons";
 interface ContainerProps {
     item: Item;
 }
 
 const PanierItem: React.FC<ContainerProps> = ({ item }) => {
+
+    const cart = Cart.Get();
+
     return (
         <IonItem>
             <IonGrid>
@@ -32,6 +34,22 @@ const PanierItem: React.FC<ContainerProps> = ({ item }) => {
                             <IonCol size="6">
                                 <IonCardSubtitle>Quantité</IonCardSubtitle>
                                 <p>{item.quantity}</p>
+                            </IonCol>
+                        </IonRow>
+                        <IonRow>
+                            <IonCol size="6">
+                                <IonButton expand="block" fill="clear" color="danger" onClick={() => {
+                                    console.log("reduire", item.reference);
+                                    cart.RemoveProduct(item);
+                                }
+                                }><IonIcon icon={removeCircleOutline}></IonIcon></IonButton>
+                            </IonCol>
+                            <IonCol size="6">
+                                <IonButton expand="block" fill="clear" color="success" onClick={() => {
+                                    console.log("ajouter", item.reference);
+                                    cart.AddProduct(item);
+                                }
+                                }><IonIcon icon={addCircleOutline}></IonIcon></IonButton>
                             </IonCol>
                         </IonRow>
                     </IonCol>

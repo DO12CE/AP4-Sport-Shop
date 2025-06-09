@@ -13,12 +13,14 @@ class PanierCount extends React.Component<{}, AppState> {
             itemCount: 0
         };
 
-        Cart.onUpdateCount = () => {
-            this.setState({ itemCount: cart.Get().ItemCount() });
-        }
+       
     }
 
     componentDidMount() {
+
+        document.addEventListener("cartUpdated", () => {
+            this.setState({ itemCount: cart.Get().ItemCount() });
+        });
 
         this.setState({ itemCount: cart.Get().ItemCount() });
     }
